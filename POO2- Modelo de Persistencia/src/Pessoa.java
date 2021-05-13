@@ -27,6 +27,4 @@ public class Pessoa {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
 }

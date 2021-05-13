@@ -1,5 +1,5 @@
 
-public class Aluno {
+public class Aluno extends Pessoa {
 	
 	private String Matricula;
 	private String CPF;
@@ -7,10 +7,11 @@ public class Aluno {
 	private String Email;
 	
 	public Aluno() {
-		
+	super();
 	}
 	
-	public Aluno( String Matricula,	String CPF, String DataNascimento, String Email) {
+	public Aluno( String Matricula,	String CPF, String DataNascimento, String Email,  String Nome) {
+		super(Nome);
 		setMatricula(Matricula);
 		setCPF(CPF);
 		setDataNascimento(DataNascimento);
@@ -46,6 +47,7 @@ public class Aluno {
 		if(email.length() > 0)
 		Email = email;
 	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -57,9 +59,12 @@ public class Aluno {
 		builder.append(DataNascimento);
 		builder.append(", Email=");
 		builder.append(Email);
+		builder.append(", toString()=");
+		builder.append(super.toString());
 		builder.append("]");
 		return builder.toString();
 	}
+	
 	
 	
 
