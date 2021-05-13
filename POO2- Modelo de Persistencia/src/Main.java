@@ -18,5 +18,9 @@ public class Main {
 		persist = new AlunoPersist(a_json);
 		persist.gravar(alu);
 		
+		AlunoXML a_xml = new AlunoXML();
+		persist = new AlunoPersist(a_xml);
+		persist.gravar(alu);
+		
 	}
 }

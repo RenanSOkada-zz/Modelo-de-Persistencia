@@ -1,9 +1,16 @@
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
+import org.jdom.output.XMLOutputter;
+
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,8 +23,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
@@ -25,24 +30,59 @@ import org.jdom.output.XMLOutputter;
 
 public class AlunoXML {
 
-	public void gravar(Aluno alu) {
-		XMLOutputter xout = new XMLOutputter();	
-		FileWriter writer;
+	public static boolean gravar(Aluno alu) {
 		try {
-			DocumentBuilderFactory dbf =DocumentBuilderFactory. newInstance();
+			// Cria o elemento que ser� o root
+			Element config = new Element("Alunos");
 
-	        DocumentBuilder dc = dbf.newDocumentBuilder();
+			//define config como root
+			Document documento = new Document(config);
 
-	        Document d = dc. newDocument();
-
-	           writer = new FileWriter("aluno.xml ");
-	           writer.write(xout.);
-	           writer.close();
-	        
+			Element titulo = new Element("titulo");
+			titulo.setText("Cadastro de Alunos");
 			
-		} catch (IOException e) {
-			e.printStackTrace();
+			config.addContent(titulo);
+			
+				Element aluno = new Element("aluno");
+				
+				aluno.setAttribute("matricula", String.valueOf(alu.getMatricula()));
+				
+				Element nome = new Element("nome");
+				nome.setText(alu.getNome());
+				
+				Element matricula = new Element("matricula");
+				matricula.setText(alu.getMatricula());
+
+				Element email = new Element("email");
+				email.setText(alu.getEmail());
+
+				Element cpf = new Element("email");
+				cpf.setText(alu.getCPF());
+				
+				Element DataNascimento = new Element("Data de Nascimento");
+				DataNascimento.setText(alu.getDataNascimento());
+							
+				aluno.addContent(nome);
+				aluno.addContent(email);
+				aluno.addContent(matricula);
+				aluno.addContent(DataNascimento);
+				aluno.addContent(cpf);
+				config.addContent(aluno);			
+
+			//classe respons�vel para imprimir / gerar o xml
+			XMLOutputter xout = new XMLOutputter();	
+			try {
+				//criando o arquivo de saida
+				System.out.println(".xml");
+				BufferedWriter arquivo = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(".xml"),"UTF-8"));
+				//imprimindo o xml no arquivo
+				xout.output(documento, arquivo);
+				return true;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return false;
+		} finally {
+			}
 	}
-}
-	
 }
